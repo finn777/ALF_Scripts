@@ -56,7 +56,7 @@ Publish-NewApplicationToBCContainer -appFile "D:\Microsoft_Base Application_15.1
 # step 4
 Sync-BCContainerApp -appName "Base Application" -appVersion 15.1.37793.1 -containerName $containerName
 
-#step 5
+# step 5
 Start-BCContainerAppDataUpgrade -appName "Base Application" -appVersion 15.1.37793.1 -containerName $containerName
 
 #Now you can debug with use 'Attach and Debug Next' feature and etc..
