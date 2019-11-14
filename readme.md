@@ -1,4 +1,3 @@
-## Useful links
 ![](media/ALFlogo.png)
 
 *Some maybe useful PowerShell scripts that I used... :*
