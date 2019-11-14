@@ -1,0 +1,67 @@
+
+#PowerShell_Docker_BCONPREM-15x.txt
+
+#https://github.com/microsoft/navcontainerhelper
+
+# step 0
+Get-InstalledModule -Name navcontainerhelper -AllVersions | Uninstall-Module
+install-module navcontainerhelper -force
+Get-InstalledModule -Name navcontainerhelper -AllVersions
+#Write-NavContainerHelperWelcomeText
+
+#https://mcr.microsoft.com/v2/businesscentral/onprem/tags/list
+#Get-BCContainerImageLabels -imageName "mcr.microsoft.com/businesscentral/onprem:15.1.37793.0-w1"
+#(Get-BCContainerImageTags -imageName "mcr.microsoft.com/businesscentral/onprem").tags
+
+# step 1
+$accept_eula = $true
+$containername = 'BCONPREM-151-W1'
+$navdockerimage = 'mcr.microsoft.com/businesscentral/onprem:15.1.37793.0-w1'
+$credential = get-credential -UserName $env:USERNAME -Message "Using Windows Authentication. Please enter your Windows credentials."
+$licenseFile = "D:\_DEVDOCKER\build.flf"
+
+New-BCContainer  -accept_eula:$accept_eula `
+                 -containername $containername `
+                 -alwaysPull `
+                 -Credential $credential `
+                 -usessl:$false `
+                 -updateHosts `
+                 -licenseFile $licenseFile `
+                 -assignPremiumPlan `
+                 -shortcuts Desktop `
+                 -imageName $navdockerimage `
+                 -auth Windows `
+                 -includeAL `
+                 -useBestContainerOS `
+                 -memoryLimit 12GB   
+Setup-BCContainerTestUsers -containerName $containername -password $credential.Password
+
+$alProjectFolder = "C:\ProgramData\NavContainerHelper\AL\BaseApp"
+Create-AlProjectFolderFromBCContainer -containerName $containername `
+                                      -alProjectFolder $alProjectFolder `
+				      -useBaseAppProperties `
+				      -useBaseLine
+
+# step 2
+# VS Code; Install AL Language extension, use .vsix from log (http://BCONPREM-151-W1:8080/al-4.0.194000.vsix); AL:Download symbols; modify code; 
+# modify app.json, increase version: x.x.x.1; AL:Package (Ctrl+Shift+B); copy .app file to D:\
+
+
+# step 3
+Publish-NewApplicationToBCContainer -appFile "D:\Microsoft_Base Application_15.1.37793.1.app" -containerName $containerName
+
+# after step 3 error: Status Code 422 : Unprocessable Entity; 
+# Get-BCContainerEventLog BCONPREM-151-W1 show: Multiple published extensions match the specified parameter values. You must specify more information to indicate which extension to use.
+
+# step 4
+Sync-BCContainerApp -appName "Base Application" -appVersion 15.1.37793.1 -containerName $containerName
+
+#step 5
+Start-BCContainerAppDataUpgrade -appName "Base Application" -appVersion 15.1.37793.1 -containerName $containerName
+
+#Now you can debug with use 'Attach and Debug Next' feature and etc..
+#https://community.dynamics.com/business/f/dynamics-365-business-central-forum/370327/info-how-to-debug-the-standard-code-business-central-15-x-on-prem-with-use-docker-and-without-publish-baseapp 
+
+# Etc...
+# get-help Restart-BCContainer -full
+# Restart-BCContainer -containerName $containername

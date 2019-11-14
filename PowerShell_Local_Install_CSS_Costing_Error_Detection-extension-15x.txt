@@ -1,0 +1,9 @@
+
+#PowerShell_Local_Install_CSS_Costing_Error_Detection-extension-15x.txt
+
+Import-Module "C:\Program Files\Microsoft Dynamics 365 Business Central\150\Service\NavAdminTool.ps1"
+
+Publish-NAVApp -ServerInstance BC150 -Path "D:\Customer Service and Support_CSS_Costing_Error_Detection_1.1.36560.0.app" -SkipVerification
+Sync-NavApp -ServerInstance BC150 -Name CSS_Costing_Error_Detection -Version 1.1.36560.0
+Install-NAVApp -ServerInstance BC150 -Name CSS_Costing_Error_Detection
+Get-NAVAppInfo BC150

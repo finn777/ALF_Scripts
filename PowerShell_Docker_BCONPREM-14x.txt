@@ -1,0 +1,37 @@
+
+#PowerShell_Docker_BCONPREM-14x.txt
+
+#https://github.com/microsoft/navcontainerhelper
+
+# step 0
+Get-InstalledModule -Name navcontainerhelper -AllVersions | Uninstall-Module
+install-module navcontainerhelper -force
+Get-InstalledModule -Name navcontainerhelper -AllVersions
+#Write-NavContainerHelperWelcomeText
+
+#https://mcr.microsoft.com/v2/businesscentral/onprem/tags/list
+#Get-BCContainerImageLabels -imageName "mcr.microsoft.com/businesscentral/onprem:14.7.37609.0-w1"
+#(Get-BCContainerImageTags -imageName "mcr.microsoft.com/businesscentral/onprem").tags
+
+
+# step 1
+$accept_eula = $true
+$containername = 'BCONPREM-147-W1'
+$navdockerimage = 'mcr.microsoft.com/businesscentral/onprem:14.7.37609.0-w1'
+$credential = get-credential -UserName $env:USERNAME -Message "Using Windows Authentication. Please enter your Windows credentials."
+$licenseFile = "D:\_DEVDOCKER\build.flf"
+
+New-BCContainer  -accept_eula:$accept_eula `
+                 -containername $containername `
+                 -auth Windows `
+                 -Credential $credential `
+                 -includeCSide `
+                 -usessl:$false `
+                 -updateHosts `
+                 -licenseFile $licenseFile `
+                 -shortcuts Desktop `
+                 -imageName $navdockerimage `
+                 -includeAL `
+                 -alwaysPull `
+                 -enableSymbolLoading `
+                 -useBestContainerOS

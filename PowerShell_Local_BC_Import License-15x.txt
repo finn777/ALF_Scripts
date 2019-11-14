@@ -1,0 +1,7 @@
+
+#PowerShell_Local_BC_Import License-15x.txt
+
+Import-Module "C:\Program Files\Microsoft Dynamics 365 Business Central\150\Service\NavAdminTool.ps1"
+Import-NAVServerLicense -LicenseFile "D:\_DEVDOCKER\build.flf" -ServerInstance BC150
+
+Export-NAVServerLicenseInformation BC150
