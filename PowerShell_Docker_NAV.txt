@@ -1,0 +1,34 @@
+
+#PowerShell_Docker_NAV.txt
+
+#https://github.com/microsoft/navcontainerhelper
+
+# step 0
+Get-InstalledModule -Name navcontainerhelper -AllVersions | Uninstall-Module
+install-module navcontainerhelper -force
+Get-InstalledModule -Name navcontainerhelper -AllVersions
+#Write-NavContainerHelperWelcomeText
+
+#Get-NAVContainerImageLabels -imageName "mcr.microsoft.com/dynamicsnav:2018-cu23-w1"
+#(Get-NAVContainerImageTags -imageName "mcr.microsoft.com/dynamicsnav").tags
+
+
+# step 1
+$accept_eula = $true
+$containername = 'NAV2018-CU23-W1'
+$navdockerimage = 'mcr.microsoft.com/dynamicsnav:2018-cu23-w1'
+$credential = get-credential -UserName $env:USERNAME -Message "Using Windows Authentication. Please enter your Windows credentials."
+$licenseFile = "D:\_DEVDOCKER\build.flf"
+
+New-NAVContainer  -accept_eula:$accept_eula `
+                 -containername $containername `
+                 -auth Windows `
+                 -Credential $credential `
+                 -includeCSide `
+                 -usessl:$false `
+                 -updateHosts `
+                 -licenseFile $licenseFile `
+                 -shortcuts Desktop `
+                 -imageName $navdockerimage `
+                 -alwaysPull `
+                 -useBestContainerOS
