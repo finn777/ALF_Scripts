@@ -18,3 +18,10 @@
 
 Customer Service and Support_CSS_Costing_Error_Detection_1.1.36560.0.app
 
+
+*plus*
+
+In this link I was trying (done a few months ago) described the story (PowerShell, Docker, etc..) from the scratch…
+[Maybe useful…](https://github.com/finn777/ALF_Report/blob/master/readme.md)
+
+
