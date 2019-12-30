@@ -10,13 +10,13 @@ Get-InstalledModule -Name navcontainerhelper -AllVersions
 #Write-NavContainerHelperWelcomeText
 
 #https://mcr.microsoft.com/v2/businesscentral/onprem/tags/list
-#Get-BCContainerImageLabels -imageName "mcr.microsoft.com/businesscentral/onprem:15.1.37793.0-w1"
+#Get-BCContainerImageLabels -imageName "mcr.microsoft.com/businesscentral/onprem:15.2.39040.0-w1"
 #(Get-BCContainerImageTags -imageName "mcr.microsoft.com/businesscentral/onprem").tags
 
 # step 1
 $accept_eula = $true
-$containername = 'BCONPREM-151-W1'
-$navdockerimage = 'mcr.microsoft.com/businesscentral/onprem:15.1.37793.0-w1'
+$containername = 'BCONPREM-152-W1'
+$navdockerimage = 'mcr.microsoft.com/businesscentral/onprem:15.2.39040.0-w1'
 $credential = get-credential -UserName $env:USERNAME -Message "Using Windows Authentication. Please enter your Windows credentials."
 $licenseFile = "D:\_DEVDOCKER\build.flf"
 
@@ -33,7 +33,8 @@ New-BCContainer  -accept_eula:$accept_eula `
                  -auth Windows `
                  -includeAL `
                  -useBestContainerOS `
-                 -memoryLimit 12GB   
+                 -memoryLimit 12GB `
+                 -isolation hyperv
 Setup-BCContainerTestUsers -containerName $containername -password $credential.Password
 
 $alProjectFolder = "C:\ProgramData\NavContainerHelper\AL\BaseApp"
