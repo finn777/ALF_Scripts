@@ -10,14 +10,14 @@ Get-InstalledModule -Name navcontainerhelper -AllVersions
 #Write-NavContainerHelperWelcomeText
 
 #https://mcr.microsoft.com/v2/businesscentral/onprem/tags/list
-#Get-BCContainerImageLabels -imageName "mcr.microsoft.com/businesscentral/onprem:14.7.37609.0-w1"
+#Get-BCContainerImageLabels -imageName "mcr.microsoft.com/businesscentral/onprem:14.10.40471.0-w1"
 #(Get-BCContainerImageTags -imageName "mcr.microsoft.com/businesscentral/onprem").tags
 
 
 # step 1
 $accept_eula = $true
-$containername = 'BCONPREM-147-W1'
-$navdockerimage = 'mcr.microsoft.com/businesscentral/onprem:14.7.37609.0-w1'
+$containername = 'BCONPRE-1410-W1'
+$navdockerimage = 'mcr.microsoft.com/businesscentral/onprem:14.10.40471.0-w1'
 $credential = get-credential -UserName $env:USERNAME -Message "Using Windows Authentication. Please enter your Windows credentials."
 $licenseFile = "D:\_DEVDOCKER\build.flf"
 
