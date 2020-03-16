@@ -18,7 +18,7 @@
 
 Customer Service and Support_CSS_Costing_Error_Detection_1.1.36560.0.app
 
-Customer Service and Support_CSS_Costing_Error_Detection_1.1.40822.0.app
+Customer Service and Support_CSS_Costing_Error_Detection_1.2.40822.0.app
 
 *plus*
 

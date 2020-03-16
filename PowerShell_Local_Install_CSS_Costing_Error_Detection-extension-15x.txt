@@ -9,7 +9,7 @@ Install-NAVApp -ServerInstance BC150 -Name CSS_Costing_Error_Detection
 Get-NAVAppInfo BC150
 
 # 15.3 and later
-Publish-NAVApp -ServerInstance BC150 -Path "D:\Customer Service and Support_CSS_Costing_Error_Detection_1.1.40822.0.app" -SkipVerification
-Sync-NavApp -ServerInstance BC150 -Name CSS_Costing_Error_Detection -Version 1.1.40822.0
+Publish-NAVApp -ServerInstance BC150 -Path "D:\Customer Service and Support_CSS_Costing_Error_Detection_1.2.40822.0.app" -SkipVerification
+Sync-NavApp -ServerInstance BC150 -Name CSS_Costing_Error_Detection -Version 1.2.40822.0
 Install-NAVApp -ServerInstance BC150 -Name CSS_Costing_Error_Detection
 Get-NAVAppInfo BC150
